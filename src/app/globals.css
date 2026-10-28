@@ -1,0 +1,330 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-cyan-accent: var(--cyan-accent);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Brand design system — deep navy industrial corporate */
+  --radius: 0.5rem;
+
+  /* Core backgrounds */
+  --background: #03111F;
+  --foreground: #F5F8FA;
+
+  /* Surfaces */
+  --surface: #061827;
+  --surface-light: #0A2233;
+  --navy: #081D2C;
+  --navy-light: #0D2A3B;
+
+  --card: #0A2233;
+  --card-foreground: #F5F8FA;
+
+  --popover: #0A2233;
+  --popover-foreground: #F5F8FA;
+
+  /* Primary = green/lime accent */
+  --primary: #8CC63F;
+  --primary-foreground: #03111F;
+  --brand: #8CC63F;
+  --brand-dark: #7DBE32;
+  --brand-foreground: #03111F;
+
+  /* Secondary = subtle navy */
+  --secondary: #0D2A3B;
+  --secondary-foreground: #F5F8FA;
+
+  --muted: #0D2A3B;
+  --muted-foreground: #A8B4BE;
+
+  --accent: #0D2A3B;
+  --accent-foreground: #F5F8FA;
+
+  --cyan-accent: #38BDF8;
+
+  --destructive: #EF4444;
+  --border: rgba(125, 190, 50, 0.10);
+  --input: rgba(168, 180, 190, 0.18);
+  --ring: #8CC63F;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: rgba(140, 198, 63, 0.3);
+    color: #ffffff;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #03111F;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #0D2A3B;
+    border-radius: 6px;
+    border: 2px solid #03111F;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1a3a4d;
+  }
+  /* Focus visibility */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Subtle hairline border used on corporate cards */
+  .border-hairline {
+    border-width: 1px;
+    border-color: rgba(168, 180, 190, 0.12);
+  }
+  .border-hairline-strong {
+    border-width: 1px;
+    border-color: rgba(168, 180, 190, 0.22);
+  }
+  .border-brand {
+    border-color: rgba(140, 198, 63, 0.45);
+  }
+  /* Gradient mesh background for sections */
+  .bg-navy-radial {
+    background-image:
+      radial-gradient(60% 80% at 80% 0%, rgba(140, 198, 63, 0.06) 0%, transparent 60%),
+      radial-gradient(50% 60% at 0% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(168, 180, 190, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 180, 190, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 75%);
+  }
+  /* Text gradient used sparingly on impact numbers */
+  .text-gradient-brand {
+    background: linear-gradient(180deg, #B6E861 0%, #7DBE32 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Reveal classes are no-ops — content is always visible.
+     Previously these hid content (opacity:0) until JS fired, which caused
+     pages to appear blank if JS was slow. Kept as no-ops so existing
+     className usage doesn't break, but no animation is applied. */
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4,
+  .reveal-delay-5 {
+    transition-delay: 0ms;
+  }
+  /* Underline grow for nav links */
+  .nav-underline {
+    position: relative;
+  }
+  .nav-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 0;
+    background-color: var(--brand);
+    transition: width 0.25s ease;
+  }
+  .nav-underline:hover::after,
+  .nav-underline.is-active::after {
+    width: 100%;
+  }
+  /* Premium card — top accent that grows on hover, plus soft brand glow */
+  .card-accent {
+    position: relative;
+  }
+  .card-accent::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(140, 198, 63, 0) 0%,
+      rgba(140, 198, 63, 0) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: background 0.35s ease;
+  }
+  .card-accent:hover::before {
+    background: linear-gradient(
+      180deg,
+      rgba(140, 198, 63, 0.55) 0%,
+      rgba(140, 198, 63, 0.08) 35%,
+      rgba(140, 198, 63, 0) 100%
+    );
+  }
+  /* Soft brand glow used behind icons / accents on hover */
+  .glow-brand {
+    box-shadow:
+      0 0 0 1px rgba(140, 198, 63, 0.12),
+      0 18px 50px -22px rgba(140, 198, 63, 0.45);
+  }
+  /* Diagonal "kicker" — a small rotated label used as a decorative tag */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  /* Section heading divider — a thin line that scales in when revealed */
+  .divider-grow {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(140, 198, 63, 0.5) 0%,
+      rgba(168, 180, 190, 0.12) 60%,
+      transparent 100%
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  .reveal.is-visible .divider-grow,
+  .is-visible.divider-grow {
+    transform: scaleX(1);
+  }
+  /* Image zoom container — keeps the zoom transition buttery */
+  .img-zoom {
+    overflow: hidden;
+  }
+  .img-zoom img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .img-zoom:hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* Premium link underline — used on inline text links */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease;
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* A slow ambient pulse for the brand dot (used in headers/labels) */
+@keyframes brand-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(140, 198, 63, 0.5); }
+  50% { opacity: 0.85; box-shadow: 0 0 0 6px rgba(140, 198, 63, 0); }
+}
+.brand-dot {
+  animation: brand-pulse 2.6s ease-in-out infinite;
+}
+
+/* Pull quote — used inside article bodies */
+.prose-article blockquote {
+  margin: 1.75rem 0;
+  padding: 1rem 0 1rem 1.5rem;
+  border-left: 3px solid var(--brand);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--foreground);
+  background: rgba(140, 198, 63, 0.04);
+}
+.prose-article blockquote p {
+  margin: 0;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
