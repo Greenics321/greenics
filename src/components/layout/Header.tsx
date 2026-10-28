@@ -65,7 +65,7 @@ export function Header() {
             />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="font-display text-lg font-bold tracking-wide text-foreground sm:text-xl">
+            <span className="font-display  text-green-500 text-lg font-bold tracking-wide text-foreground sm:text-xl">
               GREENICS
             </span>
             <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.14em] text-foreground/80">
