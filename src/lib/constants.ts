@@ -39,12 +39,12 @@ export const COMPANY = {
     city: "Telangana",
     country: "India",
   },
-  email: "info.greenics@gmail.com",
+  email: "info@greenics.co",
   phone: "+91 95154 44050",
   phoneAlt: "+91 96763 94455",
   whatsapp: "+91 95154 44050",
   serviceDesk: "1800-000-0000",
-  website: "https://www.greenicsenterprises.com",
+  website: "https://www.greenics.co",
   foundedYear: 2024,
 } as const;
 
